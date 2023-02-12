@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
     @Test
@@ -36,6 +37,11 @@ public class StringTest {
     @Test
     void charAt() {
         String actual = "abc";
+        char alphabet = actual.charAt(0);
+        assertThat(alphabet).isEqualTo('a');
 
+        assertThatThrownBy(() -> {
+            actual.charAt(actual.length());
+        }).isInstanceOf(IndexOutOfBoundsException.class);
     }
 }
