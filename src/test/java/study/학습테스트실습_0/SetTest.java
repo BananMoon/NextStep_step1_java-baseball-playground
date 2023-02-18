@@ -1,4 +1,4 @@
-package study;
+package study.학습테스트실습_0;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -55,6 +55,10 @@ public class SetTest {
         assertTrue(numbers.contains(num));
     }
 
+    /**
+     * 1,2,3 값은 contains 메서드 실행결과 true,
+     * 4,5 값을 넣으면 false 반환
+     */
     @DisplayName("요구사항3")
     @ParameterizedTest
     @CsvSource(value = {"1,true", "2,true", "3,true", "4,false", "5,false"})
