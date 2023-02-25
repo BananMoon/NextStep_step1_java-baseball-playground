@@ -64,7 +64,7 @@ public class BaseballPlayGround {
             int randomInt = random.nextInt(10);
             strs.add(String.valueOf(randomInt));
         }
-        return new ArrayList<>(strs); // TODO ???
+        return new ArrayList<>(strs);
     }
 
     // 같은 수가 같은 위치에 있으면 스트라이크 추가
