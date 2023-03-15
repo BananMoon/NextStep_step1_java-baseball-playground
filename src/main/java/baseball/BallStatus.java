@@ -7,4 +7,13 @@ public enum BallStatus {
     public boolean isNotNothing() {
         return this != BallStatus.NOTHING;
     }
+
+    public boolean isBall() {
+        return this == BallStatus.BALL;
+    }
+
+    public boolean isStrike() {
+        return this == BallStatus.STRIKE;
+    }
+
 }

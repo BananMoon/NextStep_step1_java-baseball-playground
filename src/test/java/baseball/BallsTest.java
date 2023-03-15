@@ -17,6 +17,29 @@ public class BallsTest {
     }
 
     @Test
+    void play_nothing() {
+        // 3자리 vs 3자리 테스트
+        // PlayResult : 스트라이크/볼 여부와 횟수 값을 갖고 있는 객체
+        PlayResult nothingResult = answer.play(List.of(4, 5, 6));  // 낫띵
+        assertThat(nothingResult.getStrike()).isEqualTo(0);
+        assertThat(nothingResult.getBall()).isEqualTo(0);
+    }
+    @Test
+    void play_1strike_1ball() {
+        PlayResult ballResult = answer.play(List.of(4, 1, 3)); // 1스트라이크 1볼
+        assertThat(ballResult.getStrike()).isEqualTo(1);
+        assertThat(ballResult.getBall()).isEqualTo(1);
+    }
+    @Test
+    void play_3strike() {
+        PlayResult ballResult = answer.play(List.of(1, 2, 3)); // 3스트라이크
+        assertThat(ballResult.getStrike()).isEqualTo(3);
+        assertThat(ballResult.getBall()).isEqualTo(0);
+        // 3스트라이크 시, 게임이 끝나야 하므로 추가 테스트
+        assertThat(ballResult.gameEnd()).isEqualTo(true);
+    }
+
+    @Test
     void strike() {
         BallStatus result = answer.play(new Ball(1, 1));
         assertThat(result).isEqualTo(BallStatus.STRIKE);
