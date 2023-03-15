@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Balls {
-    List<Ball> balls;
+    List<Ball> answerBalls;
 
     public Balls(List<Integer> answers) { /* REFACTOR : 인자를 List<Ball> -> List<Integer> : 클라이언트가 더 쉽게 사용할 수 있다.*/
-        this.balls = mapBall(answers);
+        this.answerBalls = mapBall(answers);
     }
 
     private List<Ball> mapBall(List<Integer> answers) {
-        balls = new ArrayList<>();
+        answerBalls = new ArrayList<>();
         for (int i=0; i < answers.size(); i++) {
-            balls.add(new Ball(i + 1, answers.get(i)));
+            answerBalls.add(new Ball(i + 1, answers.get(i)));
         }
-        return balls;
+        return answerBalls;
     }
 
     // (123) 에 2,1이 들어왔음. 순회하면서 동일 숫자 발견하면 볼.
@@ -24,7 +24,7 @@ public class Balls {
     // 볼, 스트라이크 중 아무것도 조회안되면 최종 낫띵
     // 값 1개 들어왔으니까 볼/스트라이크 중 먼저 나오는게 답이겠지
     public BallStatus play(Ball ball) {
-        /*for (Ball answer : balls) {
+        /*for (Ball answer : answerBalls) {
             BallStatus smallStatus = answer.play(ball);   *//* REFACTOR : 작은 문제 풀 때 생성한 Ball.play(~) 쓰도록 수정 *//*
             if (smallStatus != BallStatus.NOTHING) {
                 return smallStatus;
@@ -33,13 +33,22 @@ public class Balls {
         return BallStatus.NOTHING;*/
 
         /* TRY : 함수형 방식 (조금은 비효율적임) */
-        return balls.stream()
+        return answerBalls.stream()
                 .map(answer -> answer.play(ball))
                 .filter(BallStatus::isNotNothing)    /* REFACTOR : ENUM 또한 인스턴스이므로, ENUM 필드에 접근하는게 아닌 메시지를 보내보자. */
 //                .filter(ballStatus -> ballStatus.isNotNothing())
                 .findFirst()
                 .orElse(BallStatus.NOTHING);
+    }
 
+    public PlayResult play (List<Integer> inputBalls) {
+        Balls userBalls = new Balls(inputBalls);
+        PlayResult result = new PlayResult();
+        for (Ball answer : answerBalls) {
+            BallStatus ballStatus = userBalls.play(answer);
+            result.report(ballStatus);
+        }
+        return result;
     }
 
 }
