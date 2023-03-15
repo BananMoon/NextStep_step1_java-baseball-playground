@@ -1,31 +1,28 @@
 package baseball;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PlayResult {
-    private int strike;
-    private int ball;
+    private final Map<BallStatus, Integer> playResult;
 
     PlayResult() {
-        strike = 0;
-        ball = 0;
+        playResult = new HashMap<>();
     }
-    public int getStrike() {
-        return strike;
+    public int getStrikeCnt() {
+        return playResult.getOrDefault(BallStatus.STRIKE, 0);
     }
 
-    public int getBall() {
-        return ball;
+    public int getBallCnt() {
+        return playResult.getOrDefault(BallStatus.BALL, 0);
     }
 
     public void report(BallStatus ballStatus) {
-        if (ballStatus.isBall()) {
-            ball++;
-        }
-        if (ballStatus.isStrike()) {
-            strike++;
-        }
+        Integer currCnt = playResult.getOrDefault(ballStatus, 0);
+        playResult.put(ballStatus, currCnt + 1);
     }
 
     public boolean gameEnd() {
-        return strike == 3;
+        return playResult.get(BallStatus.STRIKE) == 3;
     }
 }
