@@ -1,10 +1,16 @@
 package study.숫자야구게임_2;
 
+import baseball.BallStatus;
+
 import java.util.*;
 
+/**
+ * self-coding
+ */
 public class BaseballPlayGround {
     public static final Scanner scanner = new Scanner(System.in);
     public static Map<String, Integer> compareResult = null;
+
     public static void playGame() {
         boolean keepGoing = true;
         while (keepGoing) {
@@ -22,9 +28,9 @@ public class BaseballPlayGround {
         }
     }
 
-    public static void guessAnswerUntilCorrect (List<String> answer) {
+    public static void guessAnswerUntilCorrect(List<String> answer) {
         boolean isCorrect = false;
-        while(!isCorrect) {
+        while (!isCorrect) {
             System.out.print("숫자를 입력해 주세요 : ");
             String[] input = scanner.nextLine().split("");
 
@@ -40,11 +46,11 @@ public class BaseballPlayGround {
         String result = "";
 
         if (compareResult.size() == 0) {
-            System.out.println("낫싱");
+            System.out.println(BallStatus.NOTHING.getKor());
             return false;
         }
-        if (compareResult.containsKey("스트라이크") && compareResult.get("스트라이크")  == 3) {
-            System.out.println("3스트라이크");
+        if (compareResult.containsKey(BallStatus.STRIKE.getKor()) && compareResult.get(BallStatus.STRIKE.getKor()) == 3) {
+            System.out.println(3 + BallStatus.STRIKE.getKor());
             return true;
         }
         for (String key : compareResult.keySet()) {
@@ -75,15 +81,15 @@ public class BaseballPlayGround {
 
         for (int i = 0; i < input.length; i++) {
             // 스트라이크
-            if (answer.get(i) == input[i]) {
-                gameResultMap.put("스트라이크",
-                        gameResultMap.getOrDefault("스트라이크", 0)+1);
+            if (answer.get(i).equals(input[i])) {
+                gameResultMap.put(BallStatus.STRIKE.getKor(),
+                        gameResultMap.getOrDefault(BallStatus.STRIKE.getKor(), 0) + 1);
                 continue;
             }
             // 볼
             if (answer.contains(input[i])) {
-                gameResultMap.put("볼",
-                        gameResultMap.getOrDefault("볼", 0)+1);
+                gameResultMap.put(BallStatus.BALL.getKor(),
+                        gameResultMap.getOrDefault(BallStatus.BALL.getKor(), 0) + 1);
             }
         }
         return gameResultMap;
