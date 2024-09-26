@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Ball {
     private final int position;
-    private final int ballNo;
+    private final BallNumber ballNo;
 
     public Ball(int position, int ballNo) {
         this.position = position;
-        this.ballNo = ballNo;
+        this.ballNo = new BallNumber(ballNo);
     }
 
-    public BallStatus play(Ball ball) {//1,4 - 2,4 ; ball, 1,4:2,5:
+    public BallStatus play(Ball ball) { //1,4 - 2,4 ; ball, 1,4:2,5:
         /* REFACTOR : null 예외 처리 */
         if (Objects.isNull(ball)) {
             System.out.println("null 값입니다.");
@@ -26,7 +26,7 @@ public class Ball {
         return BallStatus.NOTHING;
     }
 
-    public boolean matchBallNo(int ballNo) {
+    public boolean matchBallNo(BallNumber ballNo) {
         return this.ballNo == ballNo;
     }
 
